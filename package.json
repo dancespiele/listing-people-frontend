@@ -1,0 +1,38 @@
+{
+	"name": "pyrite-test",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build:server": "tsc",
+		"build:server:watch": "tsc -w",
+		"start:server": "nodemon lib/server",
+		"build:public:watch": "webpack --watch",
+		"start:public": "http-server dist",
+		"watch": "concurrently --kill-others \"npm run build:public:watch\" \"npm run start:public\""
+	},
+	"author": "Fabio Garcia",
+	"license": "ISC",
+	"dependencies": {
+		"@types/bootstrap": "^3.3.36",
+		"@types/jquery": "^3.2.15",
+		"bootstrap": "^3.3.7",
+		"css-loader": "^0.28.7",
+		"file-loader": "^1.1.5",
+		"pyrite": "^2.6.4",
+		"pyrite-connect": "^0.3.0",
+		"pyrite-connect-emitter": "^0.1.0",
+		"sass": "^1.0.0-beta.2",
+		"sass-loader": "^6.0.6",
+		"style-loader": "^0.19.0"
+	},
+	"devDependencies": {
+		"browser-sync": "^2.18.13",
+		"browser-sync-webpack-plugin": "^1.2.0",
+		"source-map-loader": "^0.2.1",
+		"ts-loader": "^3.0.5",
+		"typescript": "^2.5.3",
+		"webpack": "^3.3.0"
+	}
+}
