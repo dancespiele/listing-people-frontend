@@ -28,6 +28,7 @@ export class MainPage {
 
     async addPerson(person: any) {
         const newPerson = await this.service.addPerson(person);
+        console.log(newPerson);
         this.people.splice(0, -1, newPerson);        
     }
 }

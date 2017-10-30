@@ -12,7 +12,7 @@
 		"jsxFactory": "Render",
 	},
 	"include": [
-		"./public"
+		"./app"
 	],
 	"exclude": [
 		"node_modules",

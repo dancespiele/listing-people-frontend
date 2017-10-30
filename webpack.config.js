@@ -1,9 +1,10 @@
 const path = require('path')
 const webpack = require("webpack");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: path.resolve(__dirname, './public/index'),
+	entry: path.resolve(__dirname, './app/index'),
 	devtool: 'source-map',
 	output: {
 		path: path.resolve(__dirname, './dist'),
@@ -34,7 +35,7 @@ module.exports = {
 			}]
 		}, {
 			test: /\.(eot|svg|ttf|woff|woff2)$/,
-			loaders: ['file-loader?name=public/fonts/[name].[ext]']
+			loaders: ['file-loader?name=fonts/[name].[ext]']
 		}]
 	},
 
@@ -49,6 +50,9 @@ module.exports = {
 			server: {
 				baseDir: ['dist']
 			}
+		}),
+		new HtmlWebpackPlugin({
+			title: 'Listing people',
 		})
 	]
 }
