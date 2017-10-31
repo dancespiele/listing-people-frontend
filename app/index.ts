@@ -1,5 +1,6 @@
 import { Pyrite, core } from "pyrite";
 import { PyriteConnect } from "pyrite-connect";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { router } from "./router";
 

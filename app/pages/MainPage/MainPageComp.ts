@@ -1,12 +1,24 @@
-import { AddElement } from '../../components';
 import { Component, Attributes, Children, Render, Inject, RouteParams} from "pyrite";
 import { MainPageTemplate } from "./MainPageTemp";
 
 @Component(MainPageTemplate)
 export class MainPage {
     people: Array<any> = [];
-    titleCols: Array<string> = ["Name", "Super Power", "Rich", "Genius"];
-    cols: Array<string> = ["name", "superPower", "rich", "genius"];
+    titleCols: Array<string> = ["Name", "Super Power", "Rich", "Genius", "Delete"];
+    cols: Array<object> = [{
+        name: "name",
+        type: "text"
+    }, {
+        name: "superPower",
+        type: "checkbox"
+    }, {
+        name: "rich",
+        type: "checkbox"
+    }, {
+        name: "rich",
+        type: "checkbox"
+    }];
+
     fields: Array<object> = [
         {
             tag: 'input',
@@ -34,7 +46,8 @@ export class MainPage {
             title: 'Genius'
         },
 
-    ]
+    ];
+    order: string;
     
     @Children children: any;
     @Inject('connect.People') service: any;
@@ -45,19 +58,52 @@ export class MainPage {
     }
 
     async getPeople() {
-        const options = this.params.filter ? {
+        const options : any = this.params.filter ? {
             filter: {
                 [this.params.filter]: true
             }
         }: {};
 
+        if(this.order) {
+            options.sort = {
+                [this.order] : 1
+            }
+        }
+
         const people = await this.service.getPeople(options);
-        this.people.splice(0, -1, ...people);
+        this.people.splice(0, this.people.length, ...people);
     }
 
     async addPerson(person: any) {
-        const newPerson = await this.service.addPerson(person);
-        console.log(newPerson);
-        this.people.splice(0, -1, newPerson);
+        try {
+            const newPerson = await this.service.addPerson(person);
+            console.log(newPerson);
+            this.people.splice(0, -1, newPerson);
+            return {
+                error: false,
+                message: 'The new was added'
+            }
+        } catch(error) {
+            return {
+                error: true,
+                message: error.message
+            };
+        }
+    }
+
+    async deletePerson(id: string) {
+        try {
+            const newPerson = await this.service.deletePerson(id);
+            const index = this.people.findIndex((person: any) => person._id === id);
+            console.log(index);
+            this.people.splice(index, 1);
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    async orderBy(field: string) {
+        this.order = field;
+        this.getPeople();
     }
 }

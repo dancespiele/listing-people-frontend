@@ -1,7 +1,8 @@
 import { Component, Attributes, Children, Render } from "pyrite";
-import {AddElement} from './AddElementComp';
+import {AddForm} from './AddFormComp';
+import './AddFormStyles.scss';
 
-export function AddElementTemp(this: AddElement) {
+export function AddFormTemp(this: AddForm) {
     const template= this.attrs.fields.map(field => {
         let fragment = null;
         if(field.type === 'text') {
@@ -10,8 +11,8 @@ export function AddElementTemp(this: AddElement) {
                 <input 
                     type={field.type}
                     placeholder={field.placeholder}
-                    value={this.elements[field.name]}
-                    oninput={(event: any) => this.elements[field.name] = event.target.value}>
+                    value={this.form[field.name]}
+                    oninput={(event: any) => this.form[field.name] = event.target.value}>
                 </input>
             </div>
         } else if(field.type === 'checkbox') {
@@ -19,8 +20,8 @@ export function AddElementTemp(this: AddElement) {
                 {(field.title) ? <label>{field.title}</label> : null}
                 <input
                     type={field.type}
-                    checked={this.elements[field.name]}
-                    onchange={(event: any) => this.elements[field.name] = event.target.value}>
+                    checked={this.form[field.name]}
+                    onchange={(event: any) => this.form[field.name] = event.target.checked}>
                 </input>
             </div>
         }
@@ -29,11 +30,18 @@ export function AddElementTemp(this: AddElement) {
     });
 
     return (
-        <div class="form">
-            <div class="form-inline">
-                {template}
-                <button onclick={this.onCreate.bind(this)}>Add</button>
+        <div class="form-component">
+            <h2>{this.attrs.title}</h2>
+            <div class="form">
+                <div class="form-inline">
+                    {template}
+                    <button class="submit" onclick={this.onCreate.bind(this)}>Add</button>
+                </div>
             </div>
+            
+            <div ref="message">
+                <span></span>
+            </div> 
         </div>
     );
 }
