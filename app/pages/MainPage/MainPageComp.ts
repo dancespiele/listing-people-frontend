@@ -1,4 +1,5 @@
-import { Component, Attributes, Children, Render, Inject, RouteParams } from "pyrite";
+import { AddElement } from '../../components';
+import { Component, Attributes, Children, Render, Inject, RouteParams} from "pyrite";
 import { MainPageTemplate } from "./MainPageTemp";
 
 @Component(MainPageTemplate)
@@ -6,6 +7,34 @@ export class MainPage {
     people: Array<any> = [];
     titleCols: Array<string> = ["Name", "Super Power", "Rich", "Genius"];
     cols: Array<string> = ["name", "superPower", "rich", "genius"];
+    fields: Array<object> = [
+        {
+            tag: 'input',
+            type: 'text',
+            name: 'name',
+            placeholder: 'name'
+        },
+        {
+            tag: 'input',
+            type: 'checkbox',
+            name: 'superPower',
+            title: 'Super power'
+        },
+        {
+            tag: 'input',
+            type: 'checkbox',
+            name: 'rich',
+            title: 'Rich'
+            
+        },
+        {
+            tag: 'input',
+            type: 'checkbox',
+            name: 'genius',
+            title: 'Genius'
+        },
+
+    ]
     
     @Children children: any;
     @Inject('connect.People') service: any;
@@ -29,6 +58,6 @@ export class MainPage {
     async addPerson(person: any) {
         const newPerson = await this.service.addPerson(person);
         console.log(newPerson);
-        this.people.splice(0, -1, newPerson);        
+        this.people.splice(0, -1, newPerson);
     }
 }

@@ -1,14 +1,10 @@
 import { Pyrite, core } from "pyrite";
 import { PyriteConnect } from "pyrite-connect";
-import { EmitterPlugin } from "pyrite-connect-emitter";
 
 import { router } from "./router";
 
 const connect = new PyriteConnect({
-	url: "http://localhost:8000",
-	plugins: [
-		new EmitterPlugin()
-	]
+	url: "http://localhost:8000"
 });
 
 const pyrite = new Pyrite({
