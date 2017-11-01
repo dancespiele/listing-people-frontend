@@ -68,19 +68,22 @@ export class MainPage {
             }
         }
 
-        const people = await this.service.getPeople(options);
-        this.people.splice(0, this.people.length, ...people);
+        let people = await this.service.getPeople(options);
+        this.totalPeople.splice(0, this.totalPeople.length, ...people);
+        console.log(this.params)
         if(this.params.filter) {
-            this.people = this.people.filter((person) => 
+            people = people.filter((person: any) => 
                 person[this.params.filter]);
         }
+        this.people.splice(0, this.people.length, ...people);
+        core.redraw();
     }
 
     async addPerson(person: any) {
         try {
             const newPerson = await this.service.addPerson(person);
-            console.log(newPerson);
             this.people.splice(0, -1, newPerson);
+            this.totalPeople.splice(0, -1, newPerson);
             return {
                 error: false,
                 message: 'The new was added'
@@ -97,8 +100,8 @@ export class MainPage {
         try {
             const newPerson = await this.service.deletePerson(id);
             const index = this.people.findIndex((person: any) => person._id === id);
-            console.log(index);
             this.people.splice(index, 1);
+            this.totalPeople.splice(index, 1);
         } catch(error) {
             console.log(error);
         }
@@ -113,7 +116,5 @@ export class MainPage {
     filterTable(filter: string) {
         const url: string = `/list/${filter}`;
         core.route.set(url);
-        this.params.filter = filter;
-        this.getPeople();
     }
 }
