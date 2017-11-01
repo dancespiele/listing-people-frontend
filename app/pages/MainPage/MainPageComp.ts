@@ -84,10 +84,7 @@ export class MainPage {
             const newPerson = await this.service.addPerson(person);
             this.people.splice(0, -1, newPerson);
             this.totalPeople.splice(0, -1, newPerson);
-            return {
-                error: false,
-                message: 'The new was added'
-            }
+            this.filterTable('');
         } catch(error) {
             return {
                 error: true,

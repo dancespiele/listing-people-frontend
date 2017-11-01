@@ -25,9 +25,6 @@ export class AddForm {
             if(msg.error){
                 refMessage.className = 'error'
                 refMessage.children[0].textContent= msg.message;
-            } else {
-                refMessage.className = 'success'
-                refMessage.children[0].textContent= msg.message;
             }
 
             setTimeout(() => {
