@@ -7,10 +7,11 @@ export class Table {
         elements: Array<any>;
         titles: Array<string>;
         cols: Array<any>;
-        orderBy: Function;
+        orderCols: Function;
         onDelete: Function;
     }
     sure: any = {};
+    order: boolean = false;
 
     onDelete(id: string) {
         this.attrs.onDelete(id);
@@ -18,5 +19,10 @@ export class Table {
 
     changeSure(id: string) {
         this.sure[id] = !this.sure[id];
+    }
+
+    orderCols(field: string) {
+        this.order =! this.order;
+        this.attrs.orderCols(field, this.order);
     }
 }

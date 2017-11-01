@@ -1,4 +1,4 @@
-import { Component, Attributes, Children, Render, Inject, RouteParams} from "pyrite";
+import { Component, Attributes, Children, Render, Inject, RouteParams, core} from "pyrite";
 import { MainPageTemplate } from "./MainPageTemp";
 
 @Component(MainPageTemplate)
@@ -7,16 +7,16 @@ export class MainPage {
     titleCols: Array<string> = ["Name", "Super Power", "Rich", "Genius", "Delete"];
     cols: Array<object> = [{
         name: "name",
-        type: "text"
+        type: "text",
     }, {
         name: "superPower",
-        type: "checkbox"
+        type: "checkbox",
     }, {
         name: "rich",
-        type: "checkbox"
+        type: "checkbox",
     }, {
-        name: "rich",
-        type: "checkbox"
+        name: "genius",
+        type: "checkbox",
     }];
 
     fields: Array<object> = [
@@ -47,7 +47,8 @@ export class MainPage {
         },
 
     ];
-    order: string;
+    orderBy: any;
+    order: boolean;
     
     @Children children: any;
     @Inject('connect.People') service: any;
@@ -64,9 +65,9 @@ export class MainPage {
             }
         }: {};
 
-        if(this.order) {
+        if(this.orderBy) {
             options.sort = {
-                [this.order] : 1
+                [this.orderBy] : (this.order) ? 1 : -1
             }
         }
 
@@ -102,8 +103,14 @@ export class MainPage {
         }
     }
 
-    async orderBy(field: string) {
-        this.order = field;
+    async orderCols(field: string, order: boolean) {
+        this.orderBy = field;
+        this.order = order;
         this.getPeople();
+    }
+
+    fiterTable(filter: string) {
+        const url: string = `#!/list${filter}`;
+        core.route.set(url);
     }
 }
