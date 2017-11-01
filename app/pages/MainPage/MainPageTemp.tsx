@@ -22,9 +22,22 @@ export function MainPageTemplate (this: MainPage) {
                     </Table> : null}
                 </div>
                 <div class="col-xs-12 btn-group">
-                    <a href="#!/list/superPower" class="btn btn-primary">Super Power</a>
-                    <a href="#!/list/rich" class="btn btn-primary">Rich</a>
-                    <a href="#!/list/genius" class="btn btn-primary">Genius</a>
+                    <button 
+                        onclick={this.filterTable.bind(this, '')} 
+                        class="btn btn-primary"> All
+                    </button>
+                    <button 
+                        onclick={this.filterTable.bind(this, 'superPower')}
+                        class="btn btn-primary">Super Power
+                    </button>
+                    <button 
+                        onclick={this.filterTable.bind(this, 'rich')}
+                        class="btn btn-primary">Rich
+                    </button>
+                    <button 
+                        onclick={this.filterTable.bind(this, 'genius')} 
+                        class="btn btn-primary">Genius
+                    </button>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">

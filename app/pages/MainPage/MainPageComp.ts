@@ -4,6 +4,7 @@ import { MainPageTemplate } from "./MainPageTemp";
 @Component(MainPageTemplate)
 export class MainPage {
     people: Array<any> = [];
+    totalPeople: Array<any> = [];
     titleCols: Array<string> = ["Name", "Super Power", "Rich", "Genius", "Delete"];
     cols: Array<object> = [{
         name: "name",
@@ -59,11 +60,7 @@ export class MainPage {
     }
 
     async getPeople() {
-        const options : any = this.params.filter ? {
-            filter: {
-                [this.params.filter]: true
-            }
-        }: {};
+        const options : any = {};
 
         if(this.orderBy) {
             options.sort = {
@@ -73,6 +70,10 @@ export class MainPage {
 
         const people = await this.service.getPeople(options);
         this.people.splice(0, this.people.length, ...people);
+        if(this.params.filter) {
+            this.people = this.people.filter((person) => 
+                person[this.params.filter]);
+        }
     }
 
     async addPerson(person: any) {
@@ -109,8 +110,10 @@ export class MainPage {
         this.getPeople();
     }
 
-    fiterTable(filter: string) {
-        const url: string = `#!/list${filter}`;
+    filterTable(filter: string) {
+        const url: string = `/list/${filter}`;
         core.route.set(url);
+        this.params.filter = filter;
+        this.getPeople();
     }
 }
