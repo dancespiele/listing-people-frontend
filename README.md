@@ -23,7 +23,7 @@ Enter to the folder and execute:
 
 ## Run
 
-First you need install and execute the [listing-people-backend](https://github.com/dancespiele/listing-people-api)
+First you need install and execute the [listing-people-api](https://github.com/dancespiele/listing-people-api)
 
 Now run:
 
