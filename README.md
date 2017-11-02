@@ -1,4 +1,4 @@
-# People Listing Frontend
+# Listing People Frontend
 
 This is a frontend example using pyrite framework. You will realize that I didn't create endpoints, instead of this I use pyrite-connect which provide all the classes and methods that I need to call a some endpoint. The tests are missing for now but I have to find out how can use ospec because Pyrite uses mithril.js as core and it includes this testing framework. 
 
