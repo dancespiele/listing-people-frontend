@@ -8,7 +8,8 @@ export function AddFormTemp(this: AddForm) {
         if(field.type === 'text') {
             fragment = <div class='form-group'>
                 {(field.title) ? <label>{field.title}</label> : null}
-                <input 
+                <input
+                    class='form-control'
                     type={field.type}
                     placeholder={field.placeholder}
                     value={this.form[field.name]}
@@ -35,7 +36,7 @@ export function AddFormTemp(this: AddForm) {
             <div class="form">
                 <div class="form-inline">
                     {template}
-                    <button class="submit" onclick={this.onCreate.bind(this)}>Add</button>
+                    <button class="btn btn-success submit" onclick={this.onCreate.bind(this)}>Add</button>
                 </div>
             </div>
             

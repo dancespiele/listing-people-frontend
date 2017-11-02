@@ -6,19 +6,6 @@ export class MainPage {
     people: Array<any> = [];
     totalPeople: Array<any> = [];
     titleCols: Array<string> = ["Name", "Super Power", "Rich", "Genius", "Delete"];
-    cols: Array<object> = [{
-        name: "name",
-        type: "text",
-    }, {
-        name: "superPower",
-        type: "checkbox",
-    }, {
-        name: "rich",
-        type: "checkbox",
-    }, {
-        name: "genius",
-        type: "checkbox",
-    }];
 
     fields: Array<object> = [
         {
@@ -59,7 +46,7 @@ export class MainPage {
         this.getPeople();
     }
 
-    async getPeople() {
+    getPeople() {
         const options : any = {};
 
         if(this.orderBy) {
@@ -68,23 +55,20 @@ export class MainPage {
             }
         }
 
-        let people = await this.service.getPeople(options);
-        this.totalPeople.splice(0, this.totalPeople.length, ...people);
-        console.log(this.params)
-        if(this.params.filter) {
-            people = people.filter((person: any) => 
-                person[this.params.filter]);
-        }
-        this.people.splice(0, this.people.length, ...people);
-        core.redraw();
+        this.service.getPeople(options).then((people: any) => {
+            this.totalPeople.splice(0, this.totalPeople.length, ...people);
+            if(this.params.filter) {
+                people = people.filter((person: any) => 
+                    person[this.params.filter]);
+            }
+            this.people.splice(0, this.people.length, ...people);
+        });
     }
 
-    async addPerson(person: any) {
+    async addPerson(person: any, event?: any) {
         try {
-            const newPerson = await this.service.addPerson(person);
-            this.people.splice(0, -1, newPerson);
-            this.totalPeople.splice(0, -1, newPerson);
-            this.filterTable('');
+            await this.service.addPerson(person);
+            this.filterTable('', event);
         } catch(error) {
             return {
                 error: true,
@@ -110,8 +94,10 @@ export class MainPage {
         this.getPeople();
     }
 
-    filterTable(filter: string) {
+    filterTable(filter: string, event?: any) {
+        event.redraw = false;
         const url: string = `/list/${filter}`;
         core.route.set(url);
+        this.getPeople();
     }
 }

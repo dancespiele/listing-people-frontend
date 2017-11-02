@@ -3,6 +3,19 @@ import { Render } from "pyrite";
 import { MainPage } from "./MainPageComp";
 
 export function MainPageTemplate (this: MainPage) {
+    const qualities = 
+        
+        this.fields.map((field: any)=> {
+            let button = null;
+            if (field.name !== "name") {
+                button = <button 
+                    onclick={this.filterTable.bind(this, field.name)}
+                    class={"btn btn-primary " + (this.params.filter === field.name ? "active" : "")}
+                    disabled={!field.name}>{field.title}
+                    </button>
+            }
+            return button;
+    });
     const superPower = !this.totalPeople.some(person=> person.superPower);
     const rich = !this.totalPeople.some(person=> person.rich);
     const genius = !this.totalPeople.some(person=> person.genius);
@@ -17,9 +30,9 @@ export function MainPageTemplate (this: MainPage) {
                         titleSubmit="Add">
                     </AddForm>
                     {(this.people.length) ? <Table 
-                        elements={this.people} 
-                        cols={this.cols} 
-                        titles={this.titleCols}
+                        elements={this.people}
+                        titles={this.titleCols} 
+                        cols={this.fields}
                         onDelete={this.deletePerson.bind(this)}
                         orderCols={this.orderCols.bind(this)}>
                     </Table> : null}
@@ -27,24 +40,10 @@ export function MainPageTemplate (this: MainPage) {
                 <div class="col-xs-12 btn-group">
                     <button 
                         onclick={this.filterTable.bind(this, '')} 
-                        class="btn btn-primary"
+                        class={"btn btn-primary " + (this.totalPeople.length === this.people.length ? "active" : "")}
                         disabled={!this.totalPeople.length}> All
                     </button>
-                    <button 
-                        onclick={this.filterTable.bind(this, 'superPower')}
-                        class="btn btn-primary"
-                        disabled={superPower}>Super Power
-                    </button>
-                    <button 
-                        onclick={this.filterTable.bind(this, 'rich')}
-                        class="btn btn-primary"
-                        disabled={rich}>Rich
-                    </button>
-                    <button 
-                        onclick={this.filterTable.bind(this, 'genius')} 
-                        class="btn btn-primary"
-                        disabled={genius}>Genius
-                    </button>
+                    {qualities}
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">

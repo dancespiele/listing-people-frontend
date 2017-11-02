@@ -19,9 +19,9 @@ export class AddForm {
 
     form: any = {};
 
-    onCreate() {
+    onCreate(event: any) {
         const refMessage = this.references.message;
-        this.attrs.onCreate(this.form).then((msg: {error: boolean, message: string})=> {
+        this.attrs.onCreate(this.form, event).then((msg: {error: boolean, message: string})=> {
             if(msg.error){
                 refMessage.className = 'error'
                 refMessage.children[0].textContent= msg.message;
@@ -30,7 +30,7 @@ export class AddForm {
             setTimeout(() => {
                 refMessage.className = ''
                 refMessage.children[0].textContent= '';
-            }, 1000);
+            }, 3000);
         });
         
         
