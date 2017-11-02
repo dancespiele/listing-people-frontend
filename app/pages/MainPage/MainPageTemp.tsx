@@ -47,7 +47,7 @@ export function MainPageTemplate (this: MainPage) {
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <Sidebar elements={this.people}></Sidebar>
+                <Sidebar elements={this.totalPeople}></Sidebar>
             </div>
         </div>
 	);
