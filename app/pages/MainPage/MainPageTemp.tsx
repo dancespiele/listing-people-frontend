@@ -11,7 +11,7 @@ export function MainPageTemplate (this: MainPage) {
                 button = <button 
                     onclick={this.filterTable.bind(this, field.name)}
                     class={"btn btn-primary " + (this.params.filter === field.name ? "active" : "")}
-                    disabled={!field.name}>{field.title}
+                    disabled={!this.totalPeople.some((person) => person[field.name])}>{field.title}
                     </button>
             }
             return button;
