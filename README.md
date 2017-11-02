@@ -6,6 +6,7 @@ This is a frontend example using [pyrite framework](https://github.com/pyrite-fr
 
 * Node
 * SASS
+* Typescript
 
 ## Download
 
@@ -16,8 +17,9 @@ This is a frontend example using [pyrite framework](https://github.com/pyrite-fr
 Enter to the folder and execute:
 
 ```
+    npm -g install typescript
     gem install sass
-    npm -g nodemon
+    npm -g install nodemon
     npm install
 ```
 
