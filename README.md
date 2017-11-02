@@ -13,7 +13,6 @@ Enter to the folder and execute:
 ```
     gem install sass
     npm -g nodemon
-    npm -g 
     npm install
 ```
 
