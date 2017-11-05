@@ -38,8 +38,7 @@ export function MainPageTemplate (this: MainPage) {
                 {(this.people.length) ? <div class="col-xs-12 btn-group">
                     <button 
                         onclick={this.filterTable.bind(this, '')} 
-                        class={"btn btn-primary " + (this.totalPeople.length === this.people.length ? "active" : "")}
-                        disabled={!this.totalPeople.length}> All
+                        class={"btn btn-primary " + (this.totalPeople.length === this.people.length ? "active" : "")}> All
                     </button>
                     {qualities}
                 </div> :null}
