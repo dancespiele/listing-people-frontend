@@ -16,9 +16,7 @@ export function MainPageTemplate (this: MainPage) {
             }
             return button;
     });
-    const superPower = !this.totalPeople.some(person=> person.superPower);
-    const rich = !this.totalPeople.some(person=> person.rich);
-    const genius = !this.totalPeople.some(person=> person.genius);
+
 	return (
 		<div>
             <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
@@ -37,14 +35,14 @@ export function MainPageTemplate (this: MainPage) {
                         orderCols={this.orderCols.bind(this)}>
                     </Table> : null}
                 </div>
-                <div class="col-xs-12 btn-group">
+                {(this.people.length) ? <div class="col-xs-12 btn-group">
                     <button 
                         onclick={this.filterTable.bind(this, '')} 
                         class={"btn btn-primary " + (this.totalPeople.length === this.people.length ? "active" : "")}
                         disabled={!this.totalPeople.length}> All
                     </button>
                     {qualities}
-                </div>
+                </div> :null}
             </div>
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                 <Sidebar elements={this.totalPeople}></Sidebar>
