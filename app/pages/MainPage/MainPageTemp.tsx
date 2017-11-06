@@ -1,6 +1,7 @@
-import { Sidebar, AddForm, Table } from '../../components';
+import { AddForm, Table } from '../../components';
 import { Render } from "pyrite";
 import { MainPage } from "./MainPageComp";
+import { Sidebar} from "../Sidebar/SideBarComp";
 
 export function MainPageTemplate (this: MainPage) {
     const qualities = 
