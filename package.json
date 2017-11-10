@@ -12,7 +12,7 @@
 		"start:public": "http-server dist",
 		"watch": "concurrently --kill-others \"npm run build:public:watch\" \"npm run start:public\""
 	},
-	"author": "Fabio Garcia",
+	"author": "Francisco J. Navarro Cortes",
 	"license": "ISC",
 	"dependencies": {
 		"@types/bootstrap": "^3.3.36",
