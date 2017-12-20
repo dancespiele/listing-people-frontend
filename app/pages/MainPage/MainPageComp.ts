@@ -1,13 +1,24 @@
-import { Component, Attributes, Children, Render, Inject, RouteParams, core} from "pyrite";
+import { Component, Template, m} from "pyrite";
+import { services, PeopleService } from "../../connect"
 import { MainPageTemplate } from "./MainPageTemp";
 
-@Component(MainPageTemplate)
-export class MainPage {
+export interface Field {
+    tag: string
+    type: string,
+    name: string,
+    title?: string,
+    placeholder?: string
+}
+
+@Template(MainPageTemplate)
+export class MainPage extends Component<any> {
     people: Array<any> = [];
     totalPeople: Array<any> = [];
     titleCols: Array<string> = ["Name", "Super Power", "Rich", "Genius", "Delete"];
 
-    fields: Array<object> = [
+    peopleService: PeopleService = services.People;
+
+    fields: Array<Field> = [
         {
             tag: 'input',
             type: 'text',
@@ -37,10 +48,6 @@ export class MainPage {
     ];
     orderBy: any;
     order: boolean;
-    
-    @Children children: any;
-    @Inject('connect.People') service: any;
-    @RouteParams params: any;
 
 	$onCreate() {
         this.getPeople();
@@ -55,11 +62,11 @@ export class MainPage {
             }
         }
 
-        this.service.getPeople(options).then((people: any) => {
+        this.peopleService.getPeople(options).then((people: any) => {
             this.totalPeople.splice(0, this.totalPeople.length, ...people);
-            if(this.params.filter) {
+            if(this.props.key) {
                 people = people.filter((person: any) => 
-                    person[this.params.filter]);
+                    person[this.props.key]);
             }
             this.people.splice(0, this.people.length, ...people);
         });
@@ -67,7 +74,7 @@ export class MainPage {
 
     async addPerson(person: any, event?: any) {
         try {
-            await this.service.addPerson(person);
+            await this.peopleService.addPerson(person);
             this.filterTable('', event);
         } catch(error) {
             return {
@@ -79,7 +86,7 @@ export class MainPage {
 
     async deletePerson(id: string) {
         try {
-            const newPerson = await this.service.deletePerson(id);
+            const newPerson = await this.peopleService.deletePerson(id);
             const index = this.people.findIndex((person: any) => person._id === id);
             this.people.splice(index, 1);
             this.totalPeople.splice(index, 1);
@@ -95,9 +102,8 @@ export class MainPage {
     }
 
     filterTable(filter: string, event?: any) {
-        event.redraw = false;
         const url: string = `/list/${filter}`;
-        core.route.set(url);
+        m.route.set(url);
         this.getPeople();
     }
 }

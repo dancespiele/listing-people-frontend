@@ -1,6 +1,6 @@
 import { MainPage } from "./pages";
 
-export const router = [{
+export const configRouters = [{
 	path: '/list',
 	component: MainPage
 },{

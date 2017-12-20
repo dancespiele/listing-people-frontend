@@ -1,5 +1,5 @@
 import { AddForm, Table } from '../../components';
-import { Render } from "pyrite";
+import { m } from "pyrite";
 import { MainPage } from "./MainPageComp";
 import { Sidebar} from "../Sidebar/SideBarComp";
 
@@ -11,7 +11,7 @@ export function MainPageTemplate (this: MainPage) {
             if (field.name !== "name") {
                 button = <button 
                     onclick={this.filterTable.bind(this, field.name)}
-                    class={"btn btn-primary " + (this.params.filter === field.name ? "active" : "")}
+                    class={"btn btn-primary " + (this.props.filter === field.name ? "active" : "")}
                     disabled={!this.totalPeople.some((person) => person[field.name])}>{field.title}
                     </button>
             }

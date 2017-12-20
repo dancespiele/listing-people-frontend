@@ -1,12 +1,12 @@
-import { Component, Attributes, Children, Render } from "pyrite";
+import { m } from "pyrite";
 import {Sidebar} from './SideBarComp';
 
 export function SidebarTemp(this: Sidebar) {
-    const countPeople = this.attrs.elements.length;
+    const countPeople = this.props.elements.length;
 
-    const superPower = this.attrs.elements.filter((element) => element.superPower);
-    const rich = this.attrs.elements.filter((element) => element.rich);
-    const genius = this.attrs.elements.filter((element) => element.genius);
+    const superPower = this.props.elements.filter((element) => element.superPower);
+    const rich = this.props.elements.filter((element) => element.rich);
+    const genius = this.props.elements.filter((element) => element.genius);
 
     const skills = (
         <div>

@@ -1,9 +1,9 @@
-import { Component, Attributes, Children, Render } from "pyrite";
-import { SidebarTemp } from "./SideBarTemp"
+import { Component, Template } from "pyrite";
+import { SidebarTemp } from "./SideBarTemp";
 
-@Component(SidebarTemp)
-export class Sidebar {
-    @Attributes attrs: {
-        elements: Array<any>;
-    }
+export interface SidebarAttibutes {
+    elements: Array<any>;
 }
+
+@Template(SidebarTemp)
+export class Sidebar extends Component<SidebarAttibutes>{}

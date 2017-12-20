@@ -1,9 +1,9 @@
-import { Component, Attributes, Children, Render } from "pyrite";
+import { Component, m } from "pyrite";
 import {AddForm} from './AddFormComp';
 import './AddFormStyles.scss';
 
 export function AddFormTemp(this: AddForm) {
-    const template= this.attrs.fields.map(field => {
+    const template= this.props.fields.map(field => {
         let fragment = null;
         if(field.type === 'text') {
             fragment = <div class='form-group'>
@@ -32,7 +32,7 @@ export function AddFormTemp(this: AddForm) {
 
     return (
         <div class="form-component">
-            <h2>{this.attrs.title}</h2>
+            <h2>{this.props.title}</h2>
             <div class="form">
                 <div class="form-inline">
                     {template}
@@ -40,7 +40,7 @@ export function AddFormTemp(this: AddForm) {
                 </div>
             </div>
             
-            <div ref="message">
+            <div class="message">
                 <span></span>
             </div> 
         </div>

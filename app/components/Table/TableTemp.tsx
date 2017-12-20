@@ -1,19 +1,19 @@
-import { Component, Attributes, Children, Render } from "pyrite";
+import { Component, m } from "pyrite";
 import {Table} from './TableComp';
 import "./TableStyles.scss";
 
 export function TableTemp(this: Table) {
-    const headers = this.attrs.titles.map((col, index) => {
-        if(this.attrs.cols[index]) {
-            return (<td onclick={this.orderCols.bind(this, this.attrs.cols[index].name)}>{col}
+    const headers = this.props.titles.map((col, index) => {
+        if(this.props.cols[index]) {
+            return (<td onclick={this.orderCols.bind(this, this.props.cols[index].name)}>{col}
                  <i class='glyphicon glyphicon-sort'></i></td>);
         }
         return (<td>{col}</td>)
     });
 
-    const rows = this.attrs.elements.map((element) => 
+    const rows = this.props.elements.map((element) => 
         <tr key={element._id}>
-            {this.attrs.cols.map((col: any) => {
+            {this.props.cols.map((col: any) => {
                 if(col.type === 'checkbox')
                     return (
                         <td>

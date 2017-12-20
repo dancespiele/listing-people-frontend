@@ -1,20 +1,21 @@
-import { Component, Attributes, Children, Render } from "pyrite";
-import { TableTemp } from "./TableTemp"
+import { Component, Template, m } from "pyrite";
+import { TableTemp } from "./TableTemp";
 
-@Component(TableTemp)
-export class Table {
-    @Attributes attrs: {
-        elements: Array<any>;
-        titles: Array<string>;
-        cols: Array<any>;
-        orderCols: Function;
-        onDelete: Function;
-    }
+export interface TableAttributes {
+    elements: Array<any>;
+    titles: Array<string>;
+    cols: Array<any>;
+    orderCols: Function;
+    onDelete: Function;
+}
+
+@Template(TableTemp)
+export class Table extends Component<TableAttributes> {
     sure: any = {};
     order: boolean = false;
 
     onDelete(id: string) {
-        this.attrs.onDelete(id);
+        this.props.onDelete(id);
     }
 
     changeSure(id: string) {
@@ -23,6 +24,6 @@ export class Table {
 
     orderCols(field: string) {
         this.order =! this.order;
-        this.attrs.orderCols(field, this.order);
+        this.props.orderCols(field, this.order);
     }
 }

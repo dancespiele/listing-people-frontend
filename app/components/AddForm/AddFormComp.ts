@@ -1,27 +1,28 @@
-import { Component, Attributes, Refs } from "pyrite";
+import { Component, Template } from "pyrite";
 import { AddFormTemp } from './AddFormTemp';
 
-@Component(AddFormTemp)
-export class AddForm {
-    @Attributes attrs: {
-        title: String;
-        onCreate: Function;
-        fields : Array<{
-            tag: string
-            type: string,
-            name: string,
-            title: string,
-            placeholder: string
-        }>;
-        titleSubmit: string,
-    }
-    @Refs references: any;
+export interface TableAttributes {
+    title: String;
+    onCreate: Function;
+    fields : Array<{
+        tag: string
+        type: string,
+        name: string,
+        title?: string,
+        placeholder?: string
+    }>;
+    titleSubmit: string;
+}
+
+@Template(AddFormTemp)
+export class AddForm extends Component<TableAttributes>{
+    
 
     form: any = {};
 
     onCreate(event: any) {
-        const refMessage = this.references.message;
-        this.attrs.onCreate(this.form, event).then((msg: {error: boolean, message: string})=> {
+        const refMessage = document.getElementsByClassName('message')[0];
+        this.props.onCreate(this.form, event).then((msg: {error: boolean, message: string})=> {
             if(msg.error){
                 refMessage.className = 'error'
                 refMessage.children[0].textContent= msg.message;
@@ -36,7 +37,7 @@ export class AddForm {
         
         Object.keys(this.form).forEach((element: any) => {
             let isTypeText: Boolean;
-            isTypeText = this.attrs.fields.some(field => 
+            isTypeText = this.props.fields.some(field => 
                 field.name === element && field.type === 'text');
             if(isTypeText) {
                 this.form[element] = '';
